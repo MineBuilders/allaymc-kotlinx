@@ -20,3 +20,4 @@ dependencyResolutionManagement {
 
 include(":core")
 include(":plugin")
+include(":example")
