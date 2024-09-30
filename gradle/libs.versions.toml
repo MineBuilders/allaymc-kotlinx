@@ -1,4 +1,6 @@
 [versions]
+allaymc-kotlinx = "0.1.0-alpha"
+
 kotlin = "2.0.20"
 gradleup-shadow = "8.3.0"
 

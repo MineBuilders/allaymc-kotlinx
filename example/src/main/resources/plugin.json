@@ -1,10 +1,11 @@
 {
   "entrance": "vip.cdms.allaymc.kotlinx.KotlinxExamplePlugin",
   "name": "KotlinxExamplePlugin",
-  "version": "0.1.0-alpha",
+  "version": "${version}",
   "dependencies": [
     {
       "name": "KotlinxPlugin",
+      "version": "${version}",
       "optional": false
     }
   ]

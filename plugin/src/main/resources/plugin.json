@@ -5,7 +5,7 @@
   "authors": [
     "MineBuilder"
   ],
-  "version": "0.1.0-alpha",
+  "version": "${version}",
   "dependencies": [],
   "website": "https://github.com/MineBuilders/allaymc-kotlinx"
 }
