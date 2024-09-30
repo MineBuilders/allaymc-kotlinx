@@ -1,19 +1,6 @@
-name: Build a preview version
-on:
-  push:
-    branches:
-      - master
-    paths:
-      - '.github/workflows/preview-build.yml'
-      - 'src/**'
-      - 'build.gradle.kts'
-      - 'settings.gradle.kts'
-  pull_request:
-    paths:
-      - '.github/workflows/preview-build.yml'
-      - 'src/**'
-      - 'build.gradle.kts'
-      - 'settings.gradle.kts'
+name: Build a preview plugin
+
+on: [ push, pull_request ]
 
 jobs:
   build:
@@ -32,9 +19,14 @@ jobs:
       - name: Build with Gradle
         run: |
           chmod +x ./gradlew
-          ./gradlew :shadowJar
+          ./gradlew :plugin:shadowJar
+
+      - name: Rename jar
+        run: |
+          mv "plugin/build/libs/plugin-all.jar" "plugin/build/libs/kotlinx-${{ github.sha }}.jar"
 
       - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
-          path: build/libs/*.jar
+          name: plugin-preview-build-${{ github.sha }}
+          path: plugin/build/libs/kotlinx-${{ github.sha }}.jar

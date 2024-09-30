@@ -1,0 +1,12 @@
+[versions]
+kotlin = "2.0.20"
+gradleup-shadow = "8.3.0"
+
+allaymc-api = "master-SNAPSHOT"
+
+[libraries]
+allaymc-api = { group = "org.allaymc.allay", name = "api", version.ref = "allaymc-api" }
+
+[plugins]
+kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
+gradleup-shadow = { id = "com.gradleup.shadow", version.ref = "gradleup-shadow" }
