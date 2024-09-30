@@ -5,6 +5,10 @@ plugins {
 
 dependencies {
     compileOnly(libs.allaymc.api)
+    api(kotlin("stdlib"))
+    api(kotlin("stdlib-jdk7"))
+    api(kotlin("stdlib-jdk8"))
+    api(kotlin("reflect"))
 }
 
 kotlin {
