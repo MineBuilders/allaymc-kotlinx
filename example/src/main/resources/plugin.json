@@ -2,6 +2,9 @@
   "entrance": "vip.cdms.allaymc.kotlinx.KotlinxExamplePlugin",
   "name": "KotlinxExamplePlugin",
   "version": "${version}",
+  "authors": [
+    "MineBuilder"
+  ],
   "dependencies": [
     {
       "name": "KotlinxPlugin",
