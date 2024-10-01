@@ -1,13 +1,17 @@
 [versions]
 allaymc-kotlinx = "0.1.0-alpha"
+allaymc-api = "master-SNAPSHOT"
 
 kotlin = "2.0.20"
 gradleup-shadow = "8.3.0"
 
-allaymc-api = "master-SNAPSHOT"
+kotlinx-coroutines-core = "1.9.0"
 
 [libraries]
 allaymc-api = { group = "org.allaymc.allay", name = "api", version.ref = "allaymc-api" }
+
+kotlinx-coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "kotlinx-coroutines-core" }
+kotlinx-coroutines-swing = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-swing", version.ref = "kotlinx-coroutines-core" }
 
 [plugins]
 kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
