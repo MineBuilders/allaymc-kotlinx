@@ -5,7 +5,7 @@ plugins {
 
 dependencies {
     compileOnly(libs.allaymc.api)
-    api(project(":core"))
+    api(projects.core)
 
     api(kotlin("stdlib"))
     api(kotlin("stdlib-jdk7"))

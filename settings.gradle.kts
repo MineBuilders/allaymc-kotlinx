@@ -1,4 +1,5 @@
 rootProject.name = "allaymc-kotlinx"
+enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
 
 pluginManagement {
     repositories {

@@ -5,7 +5,7 @@ plugins {
 
 dependencies {
     compileOnly(libs.allaymc.api)
-    compileOnly(project(":plugin"))
+    compileOnly(projects.plugin)
 }
 
 kotlin {
