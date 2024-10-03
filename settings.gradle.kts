@@ -3,6 +3,14 @@ enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
 
 pluginManagement {
     repositories {
+        google {
+            @Suppress("UnstableApiUsage")
+            mavenContent {
+                includeGroupAndSubgroups("androidx")
+                includeGroupAndSubgroups("com.android")
+                includeGroupAndSubgroups("com.google")
+            }
+        }
         mavenCentral()
         gradlePluginPortal()
     }
@@ -11,6 +19,13 @@ pluginManagement {
 dependencyResolutionManagement {
     @Suppress("UnstableApiUsage")
     repositories {
+        google {
+            mavenContent {
+                includeGroupAndSubgroups("androidx")
+                includeGroupAndSubgroups("com.android")
+                includeGroupAndSubgroups("com.google")
+            }
+        }
         mavenCentral()
         maven("https://jitpack.io/")
         maven("https://www.jitpack.io/")
@@ -21,5 +36,10 @@ dependencyResolutionManagement {
 }
 
 include(":core")
-include(":plugin")
+include(":plugin", ":plugin:compose-lib")
+project(":plugin:compose-lib").apply {
+    buildFileName = "../compose-lib.gradle.kts"
+    projectDir = file("plugin/build")  // set to any existing dir
+}
+
 include(":example")

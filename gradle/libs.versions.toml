@@ -3,6 +3,7 @@ allaymc-kotlinx = "0.1.0-alpha"
 allaymc-api = "master-SNAPSHOT"
 
 kotlin = "2.0.20"
+compose-plugin = "1.6.11"
 gradleup-shadow = "8.3.0"
 
 kotlinx-coroutines-core = "1.9.0"
@@ -15,4 +16,6 @@ kotlinx-coroutines-swing = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-
 
 [plugins]
 kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
+compose-compiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
+jetbrains-compose = { id = "org.jetbrains.compose", version.ref = "compose-plugin" }
 gradleup-shadow = { id = "com.gradleup.shadow", version.ref = "gradleup-shadow" }
