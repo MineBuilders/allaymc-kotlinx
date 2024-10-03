@@ -20,13 +20,21 @@ jobs:
         run: |
           chmod +x ./gradlew
           ./gradlew :plugin:shadowJar
+          ./gradlew :plugin:compose-lib:shadowJar
 
       - name: Rename jar
         run: |
           mv "plugin/build/libs/plugin-all.jar" "plugin/build/libs/kotlinx-${{ github.sha }}.jar"
+          mv "plugin/build/libs/compose-lib-all.jar" "plugin/build/libs/kotlinx-compose-${{ github.sha }}.jar"
 
       - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
           name: plugin-preview-build-${{ github.sha }}
           path: plugin/build/libs/kotlinx-${{ github.sha }}.jar
+
+      - name: Upload artifact (Compose)
+        uses: actions/upload-artifact@v4
+        with:
+          name: plugin-compose-preview-build-${{ github.sha }}
+          path: plugin/build/libs/kotlinx-compose-${{ github.sha }}.jar
