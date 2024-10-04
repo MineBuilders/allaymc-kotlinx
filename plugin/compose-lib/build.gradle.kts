@@ -7,9 +7,6 @@ plugins {
     alias(libs.plugins.gradleup.shadow)
 }
 
-@Suppress("DEPRECATION")
-buildDir = file("../build")
-
 @OptIn(ExperimentalComposeLibrary::class)
 dependencies {
     api(projects.plugin)

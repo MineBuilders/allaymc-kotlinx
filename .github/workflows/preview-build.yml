@@ -25,7 +25,7 @@ jobs:
       - name: Rename jar
         run: |
           mv "plugin/build/libs/plugin-all.jar" "plugin/build/libs/kotlinx-${{ github.sha }}.jar"
-          mv "plugin/build/libs/compose-lib-all.jar" "plugin/build/libs/kotlinx-compose-${{ github.sha }}.jar"
+          mv "plugin/compose-lib/build/libs/compose-lib-all.jar" "plugin/build/libs/kotlinx-compose-${{ github.sha }}.jar"
 
       - name: Upload artifact
         uses: actions/upload-artifact@v4

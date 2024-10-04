@@ -37,9 +37,4 @@ dependencyResolutionManagement {
 
 include(":core")
 include(":plugin", ":plugin:compose-lib")
-project(":plugin:compose-lib").apply {
-    buildFileName = "../compose-lib.gradle.kts"
-    projectDir = file("plugin/build")  // set to any existing dir
-}
-
 include(":example")
