@@ -1,6 +1,6 @@
 {
   "entrance": "vip.cdms.allaymc.kotlinx.KotlinxPlugin",
-  "name": "KotlinxLib",
+  "name": "kotlinx-lib",
   "description": "Kotlin-style Extension Library and Shared Standard Library for Allay Server",
   "authors": [
     "MineBuilder"
