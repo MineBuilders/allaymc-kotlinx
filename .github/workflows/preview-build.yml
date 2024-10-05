@@ -30,11 +30,11 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
-          name: plugin-preview-build-${{ github.sha }}
+          name: kotlinx-shared-lib-plugin-${{ github.sha }}
           path: plugin/build/libs/kotlinx-${{ github.sha }}.jar
 
       - name: Upload artifact (Compose)
         uses: actions/upload-artifact@v4
         with:
-          name: plugin-compose-preview-build-${{ github.sha }}
+          name: kotlinx-compose-shared-lib-plugin-${{ github.sha }}
           path: plugin/build/libs/kotlinx-compose-${{ github.sha }}.jar
