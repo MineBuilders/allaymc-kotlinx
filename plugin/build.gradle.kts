@@ -4,6 +4,7 @@ plugins {
 }
 
 dependencies {
+    @Suppress("VulnerableLibrariesLocal", "RedundantSuppression")
     compileOnly(libs.allaymc.api)
     api(projects.core)
 
