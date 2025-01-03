@@ -1,4 +1,4 @@
-name: Build a preview plugin
+name: Build preview shared lib plugins
 
 on: [ push, pull_request ]
 
@@ -10,31 +10,63 @@ jobs:
       - name: Checkout master
         uses: actions/checkout@v4
 
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Clone actions/upload-artifact repo
+        run: git clone https://github.com/actions/upload-artifact.git
+
       - name: Set up JDK 21
         uses: actions/setup-java@v4
         with:
           java-version: '21'
           distribution: 'zulu'
 
-      - name: Build with Gradle
+      - name: Build and upload plugins dynamically?
         run: |
           chmod +x ./gradlew
-          ./gradlew :plugin:shadowJar
-          ./gradlew :plugin:compose-lib:shadowJar
+          
+          # mkdir -p plugin/build/libs
+          for dir in plugin/*/; do
+            if [ -d "$dir" ]; then
+              dir_name=$(basename "$dir")
+              if [ "$dir_name" == "build" ]; then
+                continue
+              fi
+          
+              echo "Building $dir_name"
+              ./gradlew :plugin:"$dir_name":shadowJar
 
-      - name: Rename jar
-        run: |
-          mv "plugin/build/libs/plugin-all.jar" "plugin/build/libs/kotlinx-${{ github.sha }}.jar"
-          mv "plugin/compose-lib/build/libs/compose-lib-all.jar" "plugin/build/libs/kotlinx-compose-${{ github.sha }}.jar"
+              output_dir="plugin/$dir_name/build/libs"
+              jar_file=$(ls $output_dir/*.jar | grep -E ".*-all\.jar$")
+          
+              if [ -z "$jar_file" ]; then
+                echo "No JAR file found in $output_dir for $dir_name"
+                exit 1
+              fi
 
-      - name: Upload artifact
+              base_name=$(basename "$jar_file" -all.jar)
+              # new_name="plugin/build/libs/kotlinx-${base_name}-${GITHUB_SHA}.jar"
+              new_name="${output_dir}/kotlinx-${base_name}-${GITHUB_SHA}.jar"
+              mv "$jar_file" "$new_name"
+
+              echo "Uploading artifact $new_name"
+              artifact_name="${base_name}-${GITHUB_SHA}"
+              # INPUT_NAME="$artifact_name" INPUT_PATH="$new_name" node upload-artifact/dist/upload/index.js
+              # NO WAY
+            fi
+          done
+
+      # TODO: upload artifacts dynamically
+      - name: Upload artifact (core)
         uses: actions/upload-artifact@v4
         with:
-          name: kotlinx-shared-lib-plugin-${{ github.sha }}
-          path: plugin/build/libs/kotlinx-${{ github.sha }}.jar
-
-      - name: Upload artifact (Compose)
+          name: kotlinx-core-lib-${{ github.sha }}
+          path: plugin/core/build/libs/*.jar
+      - name: Upload artifact (compose)
         uses: actions/upload-artifact@v4
         with:
-          name: kotlinx-compose-shared-lib-plugin-${{ github.sha }}
-          path: plugin/build/libs/kotlinx-compose-${{ github.sha }}.jar
+          name: kotlinx-compose-lib-${{ github.sha }}
+          path: plugin/compose/build/libs/*.jar

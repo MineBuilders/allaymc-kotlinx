@@ -7,12 +7,24 @@ plugins {
     alias(libs.plugins.gradleup.shadow) apply false
 }
 
+version = libs.versions.allaymc.kotlinx.get()
+
 subprojects {
     afterEvaluate {
 
-        kotlin.compilerOptions.freeCompilerArgs.addAll(
-            "-Xcontext-receivers",  // https://kotlinlang.org/docs/whatsnew2020.html#phased-replacement-of-context-receivers-with-context-parameters
-        )
+        runCatching {
+            kotlin {
+                sourceSets.all {  // all is jvm :P
+                    dependencies {
+                        @Suppress("VulnerableLibrariesLocal", "RedundantSuppression")
+                        compileOnly(libs.allaymc.api)
+                    }
+                }
+                compilerOptions.freeCompilerArgs.addAll(
+                    "-Xcontext-receivers",  // https://kotlinlang.org/docs/whatsnew2020.html#phased-replacement-of-context-receivers-with-context-parameters
+                )
+            }
+        }
 
         if (projectDir.resolve("src/main/resources/plugin.json").exists()) {
             val version = rootProject.libs.versions.allaymc.kotlinx.get()

@@ -4,8 +4,6 @@ import org.allaymc.api.entity.interfaces.EntityPlayer
 import org.allaymc.api.form.Forms
 import org.allaymc.api.form.element.Button
 import org.allaymc.api.form.element.ImageData
-import org.allaymc.api.form.element.ImageData.PATH_TYPE
-import org.allaymc.api.form.element.ImageData.URL_TYPE
 import org.allaymc.api.form.type.SimpleForm
 import vip.cdms.allaymc.kotlinx.Receiver
 
@@ -20,7 +18,7 @@ class SimpleFormBuilder : FormBuilder<SimpleForm, SimpleFormBuilder.Response>() 
     data class Button(val text: String, val image: Image? = null)
     fun imagePathOf(path: String) = Image.Path(path)
     fun imageUrlOf(url: String) = Image.Url(url)
-    fun Image.convert() = ImageData(if (this is Image.Path) PATH_TYPE else URL_TYPE, data)
+    fun Image.convert() = ImageData(if (this is Image.Path) ImageData.ImageType.PATH else ImageData.ImageType.URL, data)
     fun Button.convert() = Button(text, image?.convert())
     val buttons = mutableListOf<Button>()
     val callbacks = linkedMapOf<Button, MutableList<Receiver<EntityPlayer>?>>()
@@ -47,7 +45,7 @@ class SimpleFormBuilder : FormBuilder<SimpleForm, SimpleFormBuilder.Response>() 
         .apply {
             this@SimpleFormBuilder.buttons.forEachIndexed { index, it ->
                 val button = it.convert()
-                button.setOnClick { _ ->
+                button.onClick { _ ->
                     callbacks[it]?.forEach { it?.invoke(player) }
                     val response = Response(index)
                     response(player, response)

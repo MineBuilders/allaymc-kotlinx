@@ -6,9 +6,8 @@ plugins {
 }
 
 dependencies {
-    @Suppress("VulnerableLibrariesLocal", "RedundantSuppression")
-    compileOnly(libs.allaymc.api)
-    compileOnly(projects.plugin.composeLib)
+    compileOnly(projects.plugin.core)
+    compileOnly(projects.plugin.compose)
 }
 
 kotlin {

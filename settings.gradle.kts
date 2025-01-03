@@ -35,6 +35,15 @@ dependencyResolutionManagement {
     }
 }
 
+val sharedDeps = arrayOf("core", "compose")
 include(":core")
-include(":plugin", ":plugin:compose-lib")
+include(":plugin")
 include(":example")
+
+sharedDeps.forEach {
+    val generated = arrayOf("plugin", "build", "plugin-generated-$it")
+    File(File(rootProject.projectDir, generated.joinToString("/"))
+        .apply { mkdirs() }, "build.gradle.kts")
+        .writeText("plugins { alias(libs.plugins.kotlin.jvm) }")
+    include(":plugin:$it", ":" + generated.joinToString(":"))
+}

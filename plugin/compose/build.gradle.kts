@@ -1,16 +1,12 @@
 import org.jetbrains.compose.ExperimentalComposeLibrary
 
 plugins {
-    alias(libs.plugins.kotlin.jvm)
     alias(libs.plugins.compose.multiplatform)
     alias(libs.plugins.compose.compiler)
-    alias(libs.plugins.gradleup.shadow)
 }
 
 @OptIn(ExperimentalComposeLibrary::class)
 dependencies {
-    api(projects.plugin)
-
     api(compose.runtime)
     api(compose.ui)
     api(compose.foundation)
@@ -29,8 +25,4 @@ dependencies {
     api(compose.desktop.windows_x64)
     api(compose.desktop.components.splitPane)
     api(compose.desktop.components.animatedImage)
-}
-
-kotlin {
-    jvmToolchain(21)
 }
