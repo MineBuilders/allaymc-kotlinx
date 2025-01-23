@@ -6,7 +6,8 @@ plugins {
 }
 
 dependencies {
-    compileOnly(projects.plugin.core)
+    compileOnly(projects.plugin.kotlinx)
+    compileOnly(projects.plugin.stdlib)
     compileOnly(projects.plugin.compose)
 }
 

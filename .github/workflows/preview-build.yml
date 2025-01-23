@@ -59,12 +59,23 @@ jobs:
             fi
           done
 
-      # TODO: upload artifacts dynamically
-      - name: Upload artifact (core)
+      - name: Upload artifact (kotlinx)
         uses: actions/upload-artifact@v4
         with:
-          name: kotlinx-core-lib-${{ github.sha }}
-          path: plugin/core/build/libs/*.jar
+          name: kotlinx-lib-${{ github.sha }}
+          path: plugin/kotlinx/build/libs/*.jar
+
+      # TODO: upload artifacts dynamically
+#      - name: Upload artifact (<MODULE_NAME>)
+#        uses: actions/upload-artifact@v4
+#        with:
+#          name: kotlinx-<MODULE_NAME>-lib-${{ github.sha }}
+#          path: plugin/<MODULE_NAME>/build/libs/*.jar
+      - name: Upload artifact (stdlib)
+        uses: actions/upload-artifact@v4
+        with:
+          name: kotlinx-stdlib-lib-${{ github.sha }}
+          path: plugin/stdlib/build/libs/*.jar
       - name: Upload artifact (compose)
         uses: actions/upload-artifact@v4
         with:

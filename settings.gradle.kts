@@ -35,7 +35,7 @@ dependencyResolutionManagement {
     }
 }
 
-val sharedDeps = arrayOf("core", "compose")
+val sharedDeps = arrayOf("kotlinx", "stdlib", "compose")
 include(":core")
 include(":plugin")
 include(":example")

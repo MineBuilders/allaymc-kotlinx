@@ -1,6 +1,4 @@
 dependencies {
-    api(projects.core)
-
     api(kotlin("stdlib"))
     api(kotlin("stdlib-jdk7"))
     api(kotlin("stdlib-jdk8"))

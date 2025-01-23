@@ -26,7 +26,7 @@ fun basePluginDescriptor(names: Names) = """
       "entrance": "${basePluginClassPackage(names)}.${basePluginClassName(names)}",
       "name": "kotlinx-${names.kebab}-lib",
       "description": "${
-          if (names.lodash == "core") "Kotlin-style Extension Library and Shared Standard Library for Allay Server"
+          if (names.lodash == "kotlinx") "Kotlin-style Extension Library for Allay Server"
           else "Kotlinx Shared Library for Allay Server -- ${names.upperCamel}"
       }",
       "authors": [
