@@ -3,21 +3,21 @@ package vip.cdms.allaymc.kotlinx.form
 import org.allaymc.api.form.Forms
 import org.allaymc.api.form.type.ModalForm
 import vip.cdms.allaymc.kotlinx.Player
-import vip.cdms.allaymc.kotlinx.Receiver
 
 class ModalFormBuilder : FormBuilder<ModalForm, ModalFormBuilder.Response>(){
     var content = ""
 
-    data class Action(val text: String, val callbacks: MutableList<Receiver<Player>?>)
-    fun actionOf(text: String, callback: Receiver<Player>? = null) = Action(text, mutableListOf()).apply { callbacks += callback }
+    data class Action(val text: String, val callbacks: MutableList<(Player.() -> Unit)?>)
+    fun actionOf(text: String, callback: (Player.() -> Unit)? = null) =
+        Action(text, mutableListOf()).apply { callbacks += callback }
     var confirm: Action? = null
     var cancel: Action? = null
 
-    fun confirm(text: String? = null, callback: Receiver<Player>? = null) {
+    fun confirm(text: String? = null, callback: (Player.() -> Unit)? = null) {
         confirm = confirm?.copy(text = text ?: confirm!!.text) ?: actionOf(text ?: "")
         confirm!!.callbacks += callback
     }
-    fun cancel(text: String? = null, callback: Receiver<Player>? = null) {
+    fun cancel(text: String? = null, callback: (Player.() -> Unit)? = null) {
         cancel = cancel?.copy(text = text ?: cancel!!.text) ?: actionOf(text ?: "")
         cancel!!.callbacks += callback
     }

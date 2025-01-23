@@ -28,7 +28,7 @@ fun ModalFormBuilder(block: ModalFormBuilder.() -> Unit) = ModalFormBuilder().ap
 fun SimpleFormBuilder(block: SimpleFormBuilder.() -> Unit) = SimpleFormBuilder().apply(block)
 
 operator fun SimpleFormBuilder.plus(block: SimpleFormBuilder.() -> Unit) = plus(SimpleFormBuilder(block))
-operator fun SimpleFormBuilder.plus(builder: SimpleFormBuilder) = SimpleFormBuilder outputBuilder@ {
+operator fun SimpleFormBuilder.plus(builder: SimpleFormBuilder) = SimpleFormBuilder outputBuilder@{
     this@outputBuilder.title = builder.title.ifBlank { this@SimpleFormBuilder.title }
     this@outputBuilder.content = builder.content.ifBlank { this@SimpleFormBuilder.content }
     this@outputBuilder.buttons += this@SimpleFormBuilder.buttons + builder.buttons

@@ -1,12 +1,10 @@
 package vip.cdms.allaymc.kotlinx.form
 
-import org.allaymc.api.entity.interfaces.EntityPlayer
 import org.allaymc.api.form.Forms
 import org.allaymc.api.form.element.Button
 import org.allaymc.api.form.element.ImageData
 import org.allaymc.api.form.type.SimpleForm
 import vip.cdms.allaymc.kotlinx.Player
-import vip.cdms.allaymc.kotlinx.Receiver
 
 class SimpleFormBuilder : FormBuilder<SimpleForm, SimpleFormBuilder.Response>() {
     var content = ""
@@ -23,12 +21,12 @@ class SimpleFormBuilder : FormBuilder<SimpleForm, SimpleFormBuilder.Response>() 
     fun Button.convert() = Button(text, image?.convert())
 
     val buttons = mutableListOf<Button>()
-    val callbacks = linkedMapOf<Button, MutableList<Receiver<EntityPlayer>?>>()
+    val callbacks = linkedMapOf<Button, MutableList<(Player.() -> Unit)?>>()
 
-    fun buttonOf(text: String, image: Image? = null, callback: Receiver<EntityPlayer>? = null) =
+    fun buttonOf(text: String, image: Image? = null, callback: (Player.() -> Unit)? = null) =
         Button(text, image).apply { callbacks.getOrPut(this) { mutableListOf() } += callback }
-    fun button(text: String, image: Image? = null, callback: Receiver<EntityPlayer>? = null) =
-        buttonOf(text, image, callback).apply { buttons += this }
+    fun button(text: String, image: Image? = null, callback: (Player.() -> Unit)? = null) =
+        buttonOf(text, image, callback).also { buttons += it }
 
     @JvmInline
     value class Response(val index: Int) : FormBuilder.Response
