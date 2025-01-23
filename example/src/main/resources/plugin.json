@@ -7,7 +7,7 @@
   ],
   "dependencies": [
     {
-      "name": "kotlinx-lib",
+      "name": "kotlinx-core-lib",
       "version": "${version}",
       "optional": false
     }
