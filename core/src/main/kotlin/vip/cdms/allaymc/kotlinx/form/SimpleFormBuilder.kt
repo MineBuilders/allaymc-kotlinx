@@ -5,6 +5,7 @@ import org.allaymc.api.form.Forms
 import org.allaymc.api.form.element.Button
 import org.allaymc.api.form.element.ImageData
 import org.allaymc.api.form.type.SimpleForm
+import vip.cdms.allaymc.kotlinx.Player
 import vip.cdms.allaymc.kotlinx.Receiver
 
 class SimpleFormBuilder : FormBuilder<SimpleForm, SimpleFormBuilder.Response>() {
@@ -20,6 +21,7 @@ class SimpleFormBuilder : FormBuilder<SimpleForm, SimpleFormBuilder.Response>() 
     fun imageUrlOf(url: String) = Image.Url(url)
     fun Image.convert() = ImageData(if (this is Image.Path) ImageData.ImageType.PATH else ImageData.ImageType.URL, data)
     fun Button.convert() = Button(text, image?.convert())
+
     val buttons = mutableListOf<Button>()
     val callbacks = linkedMapOf<Button, MutableList<Receiver<EntityPlayer>?>>()
 
@@ -28,18 +30,10 @@ class SimpleFormBuilder : FormBuilder<SimpleForm, SimpleFormBuilder.Response>() 
     fun button(text: String, image: Image? = null, callback: Receiver<EntityPlayer>? = null) =
         buttonOf(text, image, callback).apply { buttons += this }
 
-    operator fun plus(block: Receiver<SimpleFormBuilder>) = plus(SimpleFormBuilder(block))
-    operator fun plus(builder: SimpleFormBuilder) = SimpleFormBuilder outputBuilder@ {
-        this@outputBuilder.title = builder.title.ifBlank { this@SimpleFormBuilder.title }
-        this@outputBuilder.content = builder.content.ifBlank { this@SimpleFormBuilder.content }
-        this@outputBuilder.buttons += this@SimpleFormBuilder.buttons + builder.buttons
-        this@outputBuilder.callbacks += this@SimpleFormBuilder.callbacks + builder.callbacks
-    }
-
     @JvmInline
     value class Response(val index: Int) : FormBuilder.Response
 
-    override fun build(player: EntityPlayer): SimpleForm = Forms.simple()
+    override fun build(player: Player): SimpleForm = Forms.simple()
         .title(title)
         .content(content)
         .apply {

@@ -19,10 +19,18 @@ abstract class FormBuilder<T : Form, R : FormBuilder.Response> {
     }
 
     abstract fun build(player: Player): T
-    infix fun send(player: Player) = build(player).apply { sendTo(player) }
+    infix fun sendTo(player: Player) = build(player).apply { sendTo(player) }
 }
+
+infix fun Player.send(builder: FormBuilder<*, *>) = builder sendTo this
 
 fun ModalFormBuilder(block: ModalFormBuilder.() -> Unit) = ModalFormBuilder().apply(block)
 fun SimpleFormBuilder(block: SimpleFormBuilder.() -> Unit) = SimpleFormBuilder().apply(block)
 
-infix fun Player.send(builder: FormBuilder<*, *>) = builder send this
+operator fun SimpleFormBuilder.plus(block: SimpleFormBuilder.() -> Unit) = plus(SimpleFormBuilder(block))
+operator fun SimpleFormBuilder.plus(builder: SimpleFormBuilder) = SimpleFormBuilder outputBuilder@ {
+    this@outputBuilder.title = builder.title.ifBlank { this@SimpleFormBuilder.title }
+    this@outputBuilder.content = builder.content.ifBlank { this@SimpleFormBuilder.content }
+    this@outputBuilder.buttons += this@SimpleFormBuilder.buttons + builder.buttons
+    this@outputBuilder.callbacks += this@SimpleFormBuilder.callbacks + builder.callbacks
+}
