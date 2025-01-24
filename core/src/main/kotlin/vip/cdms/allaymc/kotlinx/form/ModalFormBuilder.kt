@@ -4,7 +4,7 @@ import org.allaymc.api.form.Forms
 import org.allaymc.api.form.type.ModalForm
 import vip.cdms.allaymc.kotlinx.Player
 
-class ModalFormBuilder : FormBuilder<ModalForm, ModalFormBuilder.Response>(){
+open class ModalFormBuilder : FormBuilder<ModalForm, ModalFormBuilder.Response>(){
     var content = ""
 
     data class Action(val text: String, val callbacks: MutableList<(Player.() -> Unit)?>)
@@ -38,5 +38,5 @@ class ModalFormBuilder : FormBuilder<ModalForm, ModalFormBuilder.Response>(){
             val response = Response(false)
             response(player, response)
         }
-        .onClose { response(player, null) }
+        .onClose(Runnable { response(player, null) })
 }

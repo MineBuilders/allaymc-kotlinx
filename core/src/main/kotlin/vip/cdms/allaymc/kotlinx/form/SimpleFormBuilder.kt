@@ -2,30 +2,21 @@ package vip.cdms.allaymc.kotlinx.form
 
 import org.allaymc.api.form.Forms
 import org.allaymc.api.form.element.Button
-import org.allaymc.api.form.element.ImageData
 import org.allaymc.api.form.type.SimpleForm
 import vip.cdms.allaymc.kotlinx.Player
 
-class SimpleFormBuilder : FormBuilder<SimpleForm, SimpleFormBuilder.Response>() {
-    var content = ""
+open class SimpleFormBuilder : FormBuilder<SimpleForm, SimpleFormBuilder.Response>(), FormImager {
+    open var content = ""
 
-    sealed interface Image {
-        val data: String
-        data class Path(override val data: String) : Image
-        data class Url(override val data: String) : Image
-    }
-    data class Button(val text: String, val image: Image? = null)
-    fun imagePathOf(path: String) = Image.Path(path)
-    fun imageUrlOf(url: String) = Image.Url(url)
-    fun Image.convert() = ImageData(if (this is Image.Path) ImageData.ImageType.PATH else ImageData.ImageType.URL, data)
+    data class Button(val text: String, val image: FormImage? = null)
     fun Button.convert() = Button(text, image?.convert())
 
-    val buttons = mutableListOf<Button>()
-    val callbacks = linkedMapOf<Button, MutableList<(Player.() -> Unit)?>>()
+    open val buttons = mutableListOf<Button>()
+    open val callbacks = mutableMapOf<Button, MutableList<(Player.() -> Unit)?>>()
 
-    fun buttonOf(text: String, image: Image? = null, callback: (Player.() -> Unit)? = null) =
+    fun buttonOf(text: String, image: FormImage? = null, callback: (Player.() -> Unit)? = null) =
         Button(text, image).apply { callbacks.getOrPut(this) { mutableListOf() } += callback }
-    fun button(text: String, image: Image? = null, callback: (Player.() -> Unit)? = null) =
+    fun button(text: String, image: FormImage? = null, callback: (Player.() -> Unit)? = null) =
         buttonOf(text, image, callback).also { buttons += it }
 
     @JvmInline
@@ -45,5 +36,5 @@ class SimpleFormBuilder : FormBuilder<SimpleForm, SimpleFormBuilder.Response>() 
                 button(button)
             }
         }
-        .onClose { response(player, null) }
+        .onClose(Runnable { response(player, null) })
 }
