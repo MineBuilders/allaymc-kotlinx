@@ -4,7 +4,7 @@ allaymc-api = "master-SNAPSHOT"
 
 kotlin = "2.1.0"
 compose-multiplatform = "1.7.3"
-gradleup-shadow = "8.3.0"
+gradleup-shadow = "8.3.5"
 
 kotlinx-coroutines = "1.10.1"
 
