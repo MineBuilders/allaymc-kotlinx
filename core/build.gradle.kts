@@ -17,8 +17,8 @@ publishing {
     publications {
         create<MavenPublication>("core") {
             from(components["java"])
-            groupId = "com.github.MineBuilders.allaymc-kotlinx"
-            artifactId = "core"
+            groupId = "com.github.MineBuilders"
+            artifactId = "allaymc-kotlinx"
             version = project.version.toString()
         }
     }

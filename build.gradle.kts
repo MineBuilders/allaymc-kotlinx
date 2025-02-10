@@ -10,6 +10,8 @@ plugins {
 version = libs.versions.allaymc.kotlinx.get()
 
 subprojects {
+    version = rootProject.version
+
     afterEvaluate {
 
         runCatching {
