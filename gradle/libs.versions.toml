@@ -2,7 +2,7 @@
 allaymc-kotlinx = "0.1.0-alpha"
 allaymc-api = "master-SNAPSHOT"
 
-kotlin = "2.1.0"
+kotlin = "2.1.20"
 compose-multiplatform = "1.7.3"
 gradleup-shadow = "8.3.5"
 
