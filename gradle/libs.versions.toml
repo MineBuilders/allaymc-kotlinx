@@ -3,7 +3,7 @@ allaymc-kotlinx = "0.1.0-alpha"
 allaymc-api = "master-SNAPSHOT"
 
 kotlin = "2.2.10"
-compose-multiplatform = "1.7.3"
+compose-multiplatform = "1.10.0"
 gradleup-shadow = "8.3.6"
 
 kotlinx-coroutines = "1.10.2"
